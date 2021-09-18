@@ -35,11 +35,30 @@ const App = () => {
 
     const [typedKeys, setTypedkeys] = useState([]);
     const [validKeys, setValidKeys] = useState([]);
+    const [completedWords, setCompletedWords] = useState([]);
     const [word, setWord] = useState('');
 
     useEffect(() => {
         setWord(getWord());
     }, []);
+
+    useEffect(() => {
+        const wordFromValidKeys = validKeys.join('').toLowerCase();
+        if(word && word === wordFromValidKeys){
+            // adicionar word ao completedWords
+            // limpar o array validkeys
+            // buscar uma nova palavra
+            let newWord = null;
+            do {
+                newWord = getWord();
+            }while(completedWords.includes(newWord));
+
+            setWord(newWord);
+            setValidKeys([]);
+
+            setCompletedWords((prev) => [...prev, word]);
+        }
+    }, [word, validKeys, completedWords])
 
     const handleKayDown = (e) => {
         e.preventDefault();
@@ -54,7 +73,7 @@ const App = () => {
                 return isNextChar ? [...prev, key] : prev;
             })
         }
-        console.log('key', key);
+        
     }
     return (
         <div className="container" tabIndex="0" onKeyDown={handleKayDown}>
@@ -65,9 +84,9 @@ const App = () => {
             <div className="typed-keys">{typedKeys ? typedKeys.join(' ') : null}</div>
             <div className="completed-words">
                 <ol>
-                    <li>cidade</li>
-                    <li>carro</li>
-                    <li>profissional</li>
+                    {completedWords.map((word)=> (
+                        <li key={word}>{word}</li>
+                    ))}
                 </ol>
             </div>
         </div>
