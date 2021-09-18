@@ -52,11 +52,16 @@ Para criar o Front-End
 <img src="./src/assets/screen-2.png" width="1800" alt="Dashboard">
 </p>
 
-
-<!-- # ![Parabéns!](https://raw.githubusercontent.com/devsuperior/bds-assets/main/img/trophy.png)CERTIFICADO
-
-
+## Página - as palavras que o usuário for acertando, vai aparecendo na listagem ao lado.
 <p align="center">
-<img src="./src/assets/imgs/certificado.png" width="1800" alt="Certificado">
+<img src="./src/assets/screen-3.png" width="1800" alt="Dashboard">
 </p>
-<h1 align="center">💻 Desenvolvido Por: Gilberto Júnior</h1> -->
+
+
+# ![Parabéns!](https://raw.githubusercontent.com/devsuperior/bds-assets/main/img/trophy.png)CONCLUÍDO
+
+
+<!-- <p align="center">
+<img src="./src/assets/imgs/certificado.png" width="1800" alt="Certificado">
+</p> -->
+<h1 align="center">💻 Desenvolvido Por: Gilberto Júnior</h1>
