@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from  'react';
+import React, { useState, useEffect, useRef } from  'react';
 
 import wordList from './resources/words.json';
 
 const MAX_TYPED_KEYS = 30;
+const WORD_ANIMATION_INTERVAL = 200;
 
 const getWord = () => {
     const index = Math.floor(Math.random() * wordList.length);
@@ -23,9 +24,11 @@ const Word = ({word, validKeys}) => {
     const matched = word.slice(0, joinedKeys.length);
     const remainder = word.slice(joinedKeys.length);
 
+    const matchedClass = joinedKeys === word ? 'matched completed' : 'matched';
+
     return (
         <>
-            <span className="matched">{matched}</span>
+            <span className={matchedClass}>{matched}</span>
             <span className="remainder">{remainder}</span>
         </>
     );
@@ -37,27 +40,39 @@ const App = () => {
     const [validKeys, setValidKeys] = useState([]);
     const [completedWords, setCompletedWords] = useState([]);
     const [word, setWord] = useState('');
+    const containerRef = useRef(null);
 
     useEffect(() => {
         setWord(getWord());
+        if(containerRef) containerRef.current.focus();
     }, []);
 
     useEffect(() => {
         const wordFromValidKeys = validKeys.join('').toLowerCase();
+
+        let timeOut = null;
+
         if(word && word === wordFromValidKeys){
-            // adicionar word ao completedWords
-            // limpar o array validkeys
-            // buscar uma nova palavra
-            let newWord = null;
-            do {
-                newWord = getWord();
-            }while(completedWords.includes(newWord));
 
-            setWord(newWord);
-            setValidKeys([]);
+           timeOut = setTimeout(() => {
 
-            setCompletedWords((prev) => [...prev, word]);
+                let newWord = null;
+                do {
+                    newWord = getWord();
+                }while(completedWords.includes(newWord));
+
+                setWord(newWord);
+                setValidKeys([]);
+
+                setCompletedWords((prev) => [...prev, word]);
+
+            }, WORD_ANIMATION_INTERVAL)
         }
+
+        return () => {
+            if(timeOut) clearTimeout(timeOut);
+        }
+
     }, [word, validKeys, completedWords])
 
     const handleKayDown = (e) => {
@@ -76,7 +91,7 @@ const App = () => {
         
     }
     return (
-        <div className="container" tabIndex="0" onKeyDown={handleKayDown}>
+        <div className="container" tabIndex="0" onKeyDown={handleKayDown} ref={containerRef}>
             <div className="valid-keys">
                 <Word word={word} validKeys={validKeys} />
             </div>
