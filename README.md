@@ -56,6 +56,10 @@ Para criar o Front-End
 <p align="center">
 <img src="./src/assets/screen-3.png" width="1800" alt="Dashboard">
 </p>
+## Página - as palavras que o usuário for acertando, vai aparecendo na listagem ao lado.
+<p align="center">
+<img src="./src/assets/screen-4.png" width="1800" alt="Dashboard">
+</p>
 
 
 # ![Parabéns!](https://raw.githubusercontent.com/devsuperior/bds-assets/main/img/trophy.png)CONCLUÍDO
